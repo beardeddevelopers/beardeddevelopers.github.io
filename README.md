@@ -1,34 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Source to beardeddevelopers.com
 
-## Getting Started
+This is a static site generating HTML, CSS, and JS files to host remotely on a static webserver (such as Github Pages).
 
-First, run the development server:
+It's a simple NextJS 11 site with really two packages (listed below).
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Requirements
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+NodeJS v12+ installed globally, or with `nvm`.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
+Install the nodejs dependencies local to this directory:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    npm i
 
-## Learn More
+## Preview (development mode)
 
-To learn more about Next.js, take a look at the following resources:
+You can start the NextJS development webserver that supports live-reload as you are developing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    npx next start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Administration
 
-## Deploy on Vercel
+We are using NetlifyCMS as the admin tool. It's a static site admin tool that uses GitHub Accounts to login, and manage the content.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The content gets published directly back to github repo, where the static site is re-built and re-deployed on every commit.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<https://beardeddevelopers.com/admin>
+
+Only those with Github Write access to the repository will be allowed to write and update.
+
+## Build and Deployment
+
+Here are the directions for a Production build. Though, these are performed automatically via Github Actions (see `.github/` for more details), you can also build and publish the repo manually with the commands below.
+
+    # build a production-ready version of the site and html/css/js
+    npx next build
+
+    # export (generate) the static site
+    npx next export
+
+What this produces is a complete static site located in the `out/` directory. This is what should get published directly to the website.
+
+## Generate/Refresh favicon, apple-touch, android icons, etc
+
+The package `cli-real-favicon` is used to take a single (large-ish) image and upload it to a remote service to generate all of the favicon, android, and apple icon files to be compliant with current standards.
+
+This has already been done. But, it is here for future reference/refreshing.
+
+    # generate images and cache data
+    npx real-favicon generate \
+      favicon-descriptors.json \
+      favicon-data.json \
+      public/
+
+    # inject into an HTML file
+    npx real-favicon inject \
+      favicon-data.json \
+      public/ \
+      public/favicon.html
+
+    # check for updates (from time to time, e.g. CICD)
+    npx real-favicon check-for-update \
+      --fail-on-update \
+      favicon-data.json
+
+NOTE: Cross-device requirements means it has to be in root `/`, as ugly as that is. :(
+
+## Refresh the Sitemap
+
+The package `next-sitemap` is used to generate the sitemap. NextJS is configured to run it on every build in the `next.config.js` webpack scripts.
+
+However, if you want to run it manually:
+
+    npx next-sitemap
+
+Currently, it will only export all pages (e.g. index.html). If you want to filter, use the `next-sitemap.js` file.
