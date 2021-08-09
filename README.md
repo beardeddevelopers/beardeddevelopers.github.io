@@ -32,15 +32,29 @@ Only those with Github Write access to the repository will be allowed to write a
 
 ## Build and Deployment
 
-Here are the directions for a Production build. Though, these are performed automatically via Github Actions (see `.github/` for more details), you can also build and publish the repo manually with the commands below.
+This repo uses Github Actions to automatically build and deploy on every commit to `master` branch.
 
-    # build a production-ready version of the site and html/css/js
+However, if you want to build and verify locally, you can perform these actions:
+
+    # build a Production site
     npx next build
 
-    # export (generate) the static site
-    npx next export -o docs
+    # generate a full static site
+    npx next export
 
-What this produces is a complete static site located in the `docs/` directory. This is what should get published directly to the website. We use `docs/` as Github Pages allows us to serve directly from `docs/` in the same branch.
+You should now have the entire static site built and servable from the `out/` directory (which is in `.gitignore` btw, so not to commit).
+
+If you want to view the production build of the site:
+
+    npx -y http-server out/
+
+### Deploying
+
+Normally to deploy, you would not be pushing the `out/` directory.
+
+We have Github Actions that will take the latest commits to `master`, and run the `build` and `export` commands, and `git push` just the `out/` directory to the special branch named `gh-pages`.
+
+The repo is configured to serve up the `gh-pages` branch.
 
 ## Generate/Refresh favicon, apple-touch, android icons, etc
 
