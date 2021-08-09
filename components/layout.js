@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import Link from "next/link";
 
 const dateTimeOfHour = () => {
   const date = new Date();
@@ -16,6 +15,14 @@ const defaultImage = "/images/bearded.jpg";
 const defaultUpdatedTime = dateTimeOfHour();
 
 const Layout = (props) => {
+  // hide da beard
+  const hideBeard = () => {
+    document.getElementById("light").style.display = "none";
+    document.getElementById("lightA").innerHTML = "";
+    document.getElementById("fade").style.display = "none";
+    return false;
+  };
+
   return (
     <>
       <Head>
@@ -46,6 +53,53 @@ const Layout = (props) => {
       </Head>
 
       {props.children}
+
+      <div id="light" className="white_content">
+        <a id="lightA" title="Click here to revert to the original state." href="#" onClick={hideBeard}></a>
+      </div>
+      <div id="fade" className="black_overlay" title="Click on the image to revert to the original state."></div>
+      <div className="siteInfo">
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        <br />
+        <small>The &gt; were intentional just to pay homage to all the low budget websites out there.</small>
+        <p>
+          Qualifications: (Thanks david!)
+          <ul>
+            <li>White Shirt</li>
+            <li>Fucked up hair</li>
+            <li>Listless expression</li>
+            <li>A beard (of course)</li>
+          </ul>
+        </p>
+        <p>
+          Submit your photo entry to{" "}
+          <script>
+            s='%3C%73%63%72%69%70%74%3E%76%61%72%20%74%2C%73%3D%27%27%3B%74%3D%22%36%34%36%46%36%33%37%35%36%44%36%35%36%45%37%34%32%45%37%37%37%32%36%39%37%34%36%35%32%38%32%32%33%43%36%31%32%30%32%30%36%38%37%32%36%35%36%36%33%44%35%43%32%32%36%44%36%31%36%39%36%43%37%34%36%46%33%41%36%32%36%35%36%31%37%32%36%34%36%35%36%34%36%34%36%35%37%36%36%35%36%43%36%46%37%30%36%35%37%32%37%33%34%30%36%37%36%44%36%31%36%39%36%43%32%45%36%33%36%46%36%44%35%43%32%32%32%30%32%30%33%45%36%32%36%35%36%31%37%32%36%34%36%35%36%34%36%34%36%35%37%36%36%35%36%43%36%46%37%30%36%35%37%32%37%33%34%30%36%37%36%44%36%31%36%39%36%43%32%45%36%33%36%46%36%44%33%43%32%46%36%31%33%45%32%32%32%39%33%42%22%3B%66%6F%72%28%69%3D%30%3B%69%3C%74%2E%6C%65%6E%67%74%68%3B%69%2B%3D%32%29%7B%73%20%2B%3D%20%75%6E%65%73%63%61%70%65%28%27%25%27%2B%74%2E%73%75%62%73%74%72%28%69%2C%32%29%29%7D%3B%65%76%61%6C%28%73%29%3B%3C%2F%73%63%72%69%70%74%3E';document.write(unescape(s));
+          </script>
+          <noscript>
+            <a href="&#109&#97&#105&#108&#116&#111&#58&#98&#101&#97&#114&#100&#101&#100&#100&#101&#118&#101&#108&#111&#112&#101&#114&#115&#64&#103&#109&#97&#105&#108&#46&#99&#111&#109">
+              <b style={{ color: "black", backgroundColor: "#ffff66 " }}>
+                &#98&#101&#97&#114&#100&#101&#100&#100&#101&#118&#101&#108&#111&#112&#101&#114&#115
+              </b>
+              &#64&#103&#109&#97&#105&#108&#46&#99&#111&#109
+            </a>
+          </noscript>
+        </p>
+        <small>
+          <a href="https://github.com/beardeddevelopers">See source code</a>
+        </small>
+      </div>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1488198-3" />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'UA-1488198-3', { page_path: window.location.pathname });
+            `,
+        }}
+      />
     </>
   );
 };

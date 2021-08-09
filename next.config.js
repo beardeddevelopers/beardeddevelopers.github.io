@@ -6,5 +6,6 @@ module.exports = {
     if (isServer && !dev) {
       require("next-sitemap");
     }
+    return config;
   },
 };
