@@ -18,7 +18,7 @@ Install the nodejs dependencies local to this directory:
 
 You can start the NextJS development webserver that supports live-reload as you are developing.
 
-    npx next start
+    npx next dev
 
 ## Administration
 
@@ -40,7 +40,7 @@ Here are the directions for a Production build. Though, these are performed auto
     # export (generate) the static site
     npx next export -o docs
 
-What this produces is a complete static site located in the `out/` directory. This is what should get published directly to the website.
+What this produces is a complete static site located in the `docs/` directory. This is what should get published directly to the website. We use `docs/` as Github Pages allows us to serve directly from `docs/` in the same branch.
 
 ## Generate/Refresh favicon, apple-touch, android icons, etc
 
