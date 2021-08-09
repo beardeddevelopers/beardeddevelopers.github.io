@@ -38,7 +38,7 @@ Here are the directions for a Production build. Though, these are performed auto
     npx next build
 
     # export (generate) the static site
-    npx next export
+    npx next export -o docs
 
 What this produces is a complete static site located in the `out/` directory. This is what should get published directly to the website.
 
