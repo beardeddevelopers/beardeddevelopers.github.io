@@ -23,3 +23,21 @@ collections:
       - {name: "avatar", label: "Avatar", widget: "image"}
       - {name: "image", label: "Image", widget: "image"}
       - {name: "isBeardedDev", label: "Is Bearded Dev?", widget: "boolean", default: true}
+  - name: almostBeards
+    label: "Almost Bearded"
+    label_singular: "Non-Bearded"
+    description: "Honorable mentions of Bearded Developers"
+    folder: "data/bearded"
+    create: true
+    delete: true  # false will prevent deletions
+    slug: "{{year}}-{{month}}-{{day}}-{{name}}-{{isBeardedDev}}"
+    extension: json
+    format: json
+    identifier_field: name
+    filter: {field: "isBeardedDev", value: false}
+    fields:
+      # name, avatar, image, isBeardedDev
+      - {name: "name", label: "Name", widget: "string"}
+      - {name: "avatar", label: "Avatar", widget: "image"}
+      - {name: "image", label: "Image", widget: "image"}
+      - {name: "isBeardedDev", label: "Is Bearded Dev?", widget: "boolean", default: false}
