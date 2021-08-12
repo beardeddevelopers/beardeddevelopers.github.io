@@ -1,5 +1,6 @@
 import React from "react";
-import Head from "next/head";
+import { Helmet } from "react-helmet";
+import styles from "../styles/styles.css";
 
 const dateTimeOfHour = () => {
   const date = new Date();
@@ -14,18 +15,34 @@ const defaultTitle = defaultSiteName + " - " + defaultDescription;
 const defaultImage = "/images/bearded.jpg";
 const defaultUpdatedTime = dateTimeOfHour();
 
-const Layout = (props) => {
-  // hide da beard
-  const hideBeard = () => {
-    document.getElementById("light").style.display = "none";
-    document.getElementById("lightA").innerHTML = "";
-    document.getElementById("fade").style.display = "none";
-    return false;
-  };
+const beardScripts = () => {
+  return `
+    document.addEventListener('DOMContentLoaded', function() {
+      var links = document.getElementsByClassName('beard');
+      for (var i=0; i<links.length; i++) {
+        var link = links[i];
+        link.addEventListener('click', function(e) {
+          document.getElementById('lightA').innerHTML='<img border=0 src="' + e.currentTarget.dataset.beard + '" />';
+          document.getElementById('light').style.display='block';
+          document.getElementById('fade').style.display='block';
+        })
+      };
+    });
 
+    document.addEventListener('DOMContentLoaded', function() {
+      var link = document.getElementById('lightA');
+      link.addEventListener('click', function() {
+        document.getElementById('light').style.display = "none";
+        document.getElementById('lightA').innerHTML = "";
+        document.getElementById('fade').style.display = "none";
+      })
+    });`;
+};
+
+const Layout = (props) => {
   return (
     <>
-      <Head>
+      <Helmet>
         <title>{defaultTitle}</title>
         <meta charSet="utf-8" />
         <meta name="description" content={defaultDescription} />
@@ -50,12 +67,17 @@ const Layout = (props) => {
         <link rel="shortcut icon" href="/favicon.ico?v=2.0" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
-      </Head>
+
+        <style>{styles}</style>
+        <script>{beardScripts()}</script>
+
+        <body style={{ width: "900px", margin: "auto 0" }} />
+      </Helmet>
 
       {props.children}
 
       <div id="light" className="white_content">
-        <a id="lightA" title="Click here to revert to the original state." href="#" onClick={hideBeard}></a>
+        <a id="lightA" title="Click here to revert to the original state." href="#" onClick="hideBeard()"></a>
       </div>
       <div id="fade" className="black_overlay" title="Click on the image to revert to the original state."></div>
       <div className="siteInfo">

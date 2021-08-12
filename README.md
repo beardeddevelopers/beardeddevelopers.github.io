@@ -1,6 +1,10 @@
 # Source to beardeddevelopers.com
 
-This is a static site generating HTML, CSS, and JS files to host remotely on a static webserver (such as Github Pages).
+Why no non-cool/hipster/sweet &lt;insert latest nodejs trend&gt; here? Why all of this inline retro 90s-style js?
+
+We're old and bearded. That's why.
+
+However, we acknowledge that we need to bring the infrastructure up to date. Therefore, this is a static site generating HTML, CSS, and JS files to host remotely on a static webserver (such as Github Pages).
 
 It's a simple NextJS 11 site with really two packages (listed below).
 

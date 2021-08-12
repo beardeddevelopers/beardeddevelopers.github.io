@@ -4,7 +4,20 @@ module.exports = {
   reactStrictMode: true,
 
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // run the sitemap
+    // convert less/css to simple strings (to embed in header, old school way!)
+    config.module.rules.push({
+      test: /\.(css|less)$/,
+      use: [
+        "to-string-loader",
+        {
+          loader: "css-loader",
+          options: { esModule: false },
+        },
+        "less-loader",
+      ],
+    });
+
+    // run the sitemap after every production build
     if (!dev && isServer) {
       config.plugins.push((compiler) => {
         compiler.hooks.afterEmit.tap("AfterEmitPlugin", (compilation) => {

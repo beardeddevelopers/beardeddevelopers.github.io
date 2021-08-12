@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Layout from "../components/layout";
 import Bearded from "../components/bearded";
 
@@ -12,10 +11,31 @@ export async function getStaticProps() {
       isBeardedDev: true,
     },
     {
+      id: 2,
+      name: "Xander",
+      avatar: "/images/avatar-xs-beard.jpg",
+      image: "/images/xs-beard.jpg",
+      isBeardedDev: true,
+    },
+    {
       id: 3,
       name: "David",
       avatar: "/images/avatar-dp-beard.jpg",
       image: "/images/dp-beard.jpg",
+      isBeardedDev: true,
+    },
+    {
+      id: 2,
+      name: "Andrew",
+      avatar: "/images/avatar-ao-close.jpg",
+      image: "/images/ao-close.jpg",
+      isBeardedDev: false,
+    },
+    {
+      id: 1,
+      name: "Andy",
+      avatar: "/images/avatar-al-close.jpg",
+      image: "/images/al-close.jpg",
       isBeardedDev: false,
     },
   ];
